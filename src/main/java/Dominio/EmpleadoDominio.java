@@ -24,12 +24,12 @@ public class EmpleadoDominio {
     private String apellidoMaterno;
     private String usuario;
     private String contrasena;
-    private int estatus;
+    private byte estatus;
 
     public EmpleadoDominio() {
     }
 
-    public EmpleadoDominio(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String usuario, String contrasena, int estatus) {
+    public EmpleadoDominio(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String usuario, String contrasena, byte estatus) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -87,11 +87,11 @@ public class EmpleadoDominio {
         this.contrasena = contrasena;
     }
 
-    public int getEstatus() {
+    public byte getEstatus() {
         return estatus;
     }
 
-    public void setEstatus(int estatus) {
+    public void setEstatus(byte estatus) {
         this.estatus = estatus;
     }
 
