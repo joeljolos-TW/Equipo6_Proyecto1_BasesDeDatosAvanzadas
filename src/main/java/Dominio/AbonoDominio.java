@@ -4,10 +4,69 @@
  */
 package Dominio;
 
+import java.util.Date;
+
 /**
- *
+ * Clase que representa a la entidad Abono en la base de datos del sistema
  * @author joel_
  */
 public class AbonoDominio {
+    /*id INT PRIMARY KEY,
+    monto DECIMAL(10,2) NOT NULL,
+    fechaHora DATETIME NOT NULL,
+    idPrestamo INT NOT NULL*/
+    
+    private int id;
+    private double monto;
+    private Date fechaHora;
+    private int idPrestamo;
+
+    public AbonoDominio() {
+    }
+
+    public AbonoDominio(int id, double monto, Date fechaHora, int idPrestamo) {
+        this.id = id;
+        this.monto = monto;
+        this.fechaHora = fechaHora;
+        this.idPrestamo = idPrestamo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    public Date getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(Date fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    public int getIdPrestamo() {
+        return idPrestamo;
+    }
+
+    public void setIdPrestamo(int idPrestamo) {
+        this.idPrestamo = idPrestamo;
+    }
+
+    @Override
+    public String toString() {
+        return "AbonoDominio{" + "id=" + id + ", monto=" + monto + ", fechaHora=" + fechaHora + ", idPrestamo=" + idPrestamo + '}';
+    }
+    
     
 }
