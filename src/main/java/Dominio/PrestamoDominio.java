@@ -4,6 +4,8 @@
  */
 package Dominio;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -25,9 +27,9 @@ public class PrestamoDominio {
     FOREIGN KEY (idJefe) REFERENCES jefes(idEmpleado)*/
     
     private int id;
-    private double monto;
+    private BigDecimal monto;
     private double comprobantePago;
-    private Date fechaHora;
+    private LocalDateTime fechaHora;
     private int idTipo;
     private int idBancoEmpleado;
     private int idBancoDepartamento;
@@ -36,7 +38,7 @@ public class PrestamoDominio {
     public PrestamoDominio() {
     }
 
-    public PrestamoDominio(int id, double monto, double comprobantePago, Date fechaHora, int idTipo, int idBancoEmpleado, int idBancoDepartamento, int idJefe) {
+    public PrestamoDominio(int id, BigDecimal monto, double comprobantePago, LocalDateTime fechaHora, int idTipo, int idBancoEmpleado, int idBancoDepartamento, int idJefe) {
         this.id = id;
         this.monto = monto;
         this.comprobantePago = comprobantePago;
@@ -55,11 +57,11 @@ public class PrestamoDominio {
         this.id = id;
     }
 
-    public double getMonto() {
+    public BigDecimal getMonto() {
         return monto;
     }
 
-    public void setMonto(double monto) {
+    public void setMonto(BigDecimal monto) {
         this.monto = monto;
     }
 
@@ -71,11 +73,11 @@ public class PrestamoDominio {
         this.comprobantePago = comprobantePago;
     }
 
-    public Date getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(Date fechaHora) {
+    public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 

@@ -1,9 +1,11 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Dominio;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -17,14 +19,14 @@ public class AbonoDominio {
     idPrestamo INT NOT NULL*/
     
     private int id;
-    private double monto;
-    private Date fechaHora;
+    private BigDecimal monto;
+    private LocalDateTime fechaHora;
     private int idPrestamo;
 
     public AbonoDominio() {
     }
 
-    public AbonoDominio(int id, double monto, Date fechaHora, int idPrestamo) {
+    public AbonoDominio(int id, BigDecimal monto, LocalDateTime fechaHora, int idPrestamo) {
         this.id = id;
         this.monto = monto;
         this.fechaHora = fechaHora;
@@ -39,19 +41,19 @@ public class AbonoDominio {
         this.id = id;
     }
 
-    public double getMonto() {
+    public BigDecimal getMonto() {
         return monto;
     }
 
-    public void setMonto(double monto) {
+    public void setMonto(BigDecimal monto) {
         this.monto = monto;
     }
 
-    public Date getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(Date fechaHora) {
+    public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 
