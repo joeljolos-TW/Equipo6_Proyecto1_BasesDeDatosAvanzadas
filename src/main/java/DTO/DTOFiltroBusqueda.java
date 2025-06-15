@@ -1,8 +1,8 @@
 package DTO;
 
 /**
- * Clase DTO generico para el filtrado de filas en una query, ademas de ayudar con la paginacion
- * de busqueda
+ * Clase DTO generico (Funciona en todos los dominios) para el filtrado de filas
+ * en una query, ademas de ayudar con la paginacion de busqueda
  * @author joel_
  */
 public class DTOFiltroBusqueda{
