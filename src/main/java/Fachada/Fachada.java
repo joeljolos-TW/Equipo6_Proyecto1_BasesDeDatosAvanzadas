@@ -11,6 +11,10 @@ import Dominio.EmpleadoDominio;
 import Negocio.EmpleadoNegocio;
 import Negocio.IEmpleadoNegocio;
 import Negocio.NegocioException;
+import Persistencia.Conexion;
+import Persistencia.DAO.DAOEmpleado;
+import Persistencia.DAO.IDAOEmpleado;
+import Persistencia.IConexion;
 import java.util.List;
 
 /**
@@ -21,8 +25,10 @@ public class Fachada implements IFachada {
 
     private IEmpleadoNegocio empleadoNegocio;
 
-    public Fachada(IEmpleadoNegocio empleadoNegocio) {
-        this.empleadoNegocio = empleadoNegocio;
+    public Fachada() {
+        IConexion conexion = new Conexion();
+        IDAOEmpleado empleado = new DAOEmpleado(conexion);
+        this.empleadoNegocio = new EmpleadoNegocio(empleado);
     }
     
     

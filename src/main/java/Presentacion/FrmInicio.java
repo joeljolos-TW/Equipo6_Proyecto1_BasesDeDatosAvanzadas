@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Presentacion;
+
 import DTO.DTOFiltroBusqueda;
 import Dominio.EmpleadoDominio;
 import Fachada.Fachada;
@@ -11,12 +12,16 @@ import Negocio.NegocioException;
 import Presentacion.Subordinado.FrmInicioSubordinado;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jorge
  */
 public class FrmInicio extends javax.swing.JFrame {
-    private IFachada Ifa;
+
+    private IFachada Ifa = new Fachada();
+
     /**
      * Creates new form FrmInicio
      */
@@ -126,17 +131,20 @@ public class FrmInicio extends javax.swing.JFrame {
     private void IngresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButtonActionPerformed
         String user = this.UsuarioTextField.getText();
         String pass = new String(this.PasswordField.getPassword());
-        
+
         try {
-            EmpleadoDominio usser = Ifa.buscarPorCredenciales(user, pass);
-            DTOFiltroBusqueda filterUsuario = new DTOFiltroBusqueda(300, 0, "usuario");
-            DTOFiltroBusqueda filterPass = new DTOFiltroBusqueda(0, 300, "contrasena");
-            if(Ifa.BuscarTablaDeSubordinados(filterUsuario).contains(user)
-                    &&Ifa.BuscarTablaDeSubordinados(filterPass).contains(pass)){
+            EmpleadoDominio empleado = Ifa.buscarPorCredenciales(user, pass);
+
+            if (empleado != null) {
+                // Aquí puedes agregar una validación por rol si lo necesitas
                 new FrmInicioSubordinado().setVisible(true);
+                this.dispose(); // Opcional: cerrar la ventana actual
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NegocioException ex) {
             Logger.getLogger(FrmInicio.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ocurrió un error en el sistema", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_IngresarButtonActionPerformed
 
@@ -184,7 +192,7 @@ public class FrmInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
-    private void ValidarUsuario(){
-        
+    private void ValidarUsuario() {
+
     }
 }
