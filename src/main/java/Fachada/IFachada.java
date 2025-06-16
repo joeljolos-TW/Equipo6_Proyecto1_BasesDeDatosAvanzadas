@@ -18,4 +18,5 @@ import java.util.List;
 public interface IFachada {
     public EmpleadoDominio RegistrarEmpleado(DTORegistrarEmpleado empleado)throws NegocioException;
     public List<DTOTablaSubordinados> BuscarTablaDeSubordinados(DTOFiltroBusqueda filtro)throws NegocioException;
+    public EmpleadoDominio buscarPorCredenciales(String usuario, String contrasena) throws NegocioException;
 }

@@ -18,4 +18,5 @@ import java.util.List;
 public interface IDAOEmpleado {
     public EmpleadoDominio RegistrarEmpleado(DTORegistrarEmpleado empleado) throws PersistenciaException;
     public List<DTOTablaSubordinados> BuscarTablaDeSubordinados(DTOFiltroBusqueda filtro) throws PersistenciaException;
+    public EmpleadoDominio buscarPorCredenciales(String usuario, String contrasena) throws PersistenciaException;
 }

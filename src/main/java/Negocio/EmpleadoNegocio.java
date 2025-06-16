@@ -7,6 +7,7 @@ import DTO.DTOFiltroBusqueda;
 import DTO.Empleado.DTORegistrarEmpleado;
 import DTO.Empleado.DTOTablaSubordinados;
 import Dominio.EmpleadoDominio;
+import Persistencia.DAO.DAOEmpleado;
 import Persistencia.DAO.IDAOEmpleado;
 import Persistencia.PersistenciaException;
 import java.util.List;
@@ -16,6 +17,12 @@ import java.util.List;
  */
 public class EmpleadoNegocio implements IEmpleadoNegocio{
     private IDAOEmpleado DAOEmpleado;
+
+    public EmpleadoNegocio(IDAOEmpleado DAOEmpleado) {
+        this.DAOEmpleado = DAOEmpleado;
+    }
+    
+    
     @Override
     public EmpleadoDominio RegistrarEmpleado(DTORegistrarEmpleado empleado)throws NegocioException{
         
@@ -56,6 +63,17 @@ public class EmpleadoNegocio implements IEmpleadoNegocio{
     private void estaVacia(List<DTOTablaSubordinados>tabla)throws NegocioException{
         if(tabla.isEmpty()){
             throw new NegocioException("La Lista de alumnos está vacia");
+        }
+    }
+
+    @Override
+    public EmpleadoDominio buscarPorCredenciales(String usuario, String contrasena) throws NegocioException {
+        try {
+            EmpleadoDominio credencial=this.DAOEmpleado.buscarPorCredenciales(usuario, contrasena);
+            return credencial;
+        } catch (PersistenciaException e) {
+            e.printStackTrace();
+            throw new NegocioException("Las Credenciales son incorrectas");
         }
     }
 }

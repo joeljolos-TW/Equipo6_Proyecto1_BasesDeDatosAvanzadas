@@ -8,6 +8,7 @@ import DTO.DTOFiltroBusqueda;
 import DTO.Empleado.DTORegistrarEmpleado;
 import DTO.Empleado.DTOTablaSubordinados;
 import Dominio.EmpleadoDominio;
+import Persistencia.PersistenciaException;
 import java.util.List;
 
 /**
@@ -17,4 +18,5 @@ import java.util.List;
 public interface IEmpleadoNegocio {
     public EmpleadoDominio RegistrarEmpleado(DTORegistrarEmpleado empleado)throws NegocioException;
     public List<DTOTablaSubordinados> BuscarTablaDeSubordinados(DTOFiltroBusqueda filtro)throws NegocioException;
+    public EmpleadoDominio buscarPorCredenciales(String usuario, String contrasena) throws NegocioException;
 }

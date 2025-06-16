@@ -26,6 +26,12 @@ public class DAOEmpleado implements IDAOEmpleado {
 
     private IConexion conexion;
 
+    public DAOEmpleado(IConexion conexion) {
+        this.conexion = conexion;
+    }
+    
+    
+
     public EmpleadoDominio buscarPorIdConConexion(int id, Connection conn) throws SQLException {
         String query = """
                    SELECT
@@ -146,7 +152,7 @@ public class DAOEmpleado implements IDAOEmpleado {
     }
 
     @Override
-    public List<DTOTablaSubordinados> BuscarTablaDeSubordinados(DTOFiltroBusqueda filtro)throws PersistenciaException{
+    public List<DTOTablaSubordinados> BuscarTablaDeSubordinados(DTOFiltroBusqueda filtro) throws PersistenciaException {
         List<DTOTablaSubordinados> subordinados = new ArrayList<>();
         String query = """
         SELECT 
@@ -179,6 +185,47 @@ public class DAOEmpleado implements IDAOEmpleado {
         }
 
         return subordinados;
+    }
+    @Override
+    public EmpleadoDominio buscarPorCredenciales(String usuario, String contrasena) throws PersistenciaException {
+        String query = """
+        SELECT 
+            id, nombre, apellidoPaterno, apellidoMaterno, usuario, contrasena, estatus
+        FROM empleados
+        WHERE usuario = ? AND contrasena = ? AND estatus = 1;
+        """;
+
+        Connection conn = null;
+        try {
+            conn = this.conexion.crearConexion();
+            PreparedStatement psmt = conn.prepareStatement(query);
+            psmt.setString(1, usuario);
+            psmt.setString(2, contrasena);
+
+            ResultSet rs = psmt.executeQuery();
+            EmpleadoDominio empleado = null;
+
+            if (rs.next()) {
+                empleado = convertirEmpleadoDominio(rs);
+            }
+
+            rs.close();
+            psmt.close();
+            conn.close();
+
+            return empleado;
+
+        } catch (SQLException e) {
+            throw new PersistenciaException("Error al buscar por credenciales: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new PersistenciaException("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
     }
 
 }
