@@ -4,15 +4,19 @@
  */
 package Persistencia.DAO;
 
+import DTO.DTOFiltroBusqueda;
 import Persistencia.IConexion;
 import Persistencia.PersistenciaException;
 import Dominio.EmpleadoDominio;
 import DTO.Empleado.DTORegistrarEmpleado;
+import DTO.Empleado.DTOTablaSubordinados;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -59,7 +63,7 @@ public class DAOEmpleado {
         return new EmpleadoDominio(id, nombre, apellidoPaterno, apellidoMaterno, usuario, contrasena, estatus);
     }
 
-    public EmpleadoDominio GuardarEmpleado(DTORegistrarEmpleado empleado) throws PersistenciaException {
+    public EmpleadoDominio RegistrarEmpleado(DTORegistrarEmpleado empleado) throws PersistenciaException {
     Connection conn = null;
     try {
         conn = conexion.crearConexion();
@@ -130,4 +134,52 @@ public class DAOEmpleado {
     }
 }
 
+    private DTOTablaSubordinados convertirTablaSubordinadosDTO(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        String nombre = resultSet.getString("nombre");
+        String apellidoPaterno = resultSet.getString("apellidoPaterno");
+        String apellidoMaterno = resultSet.getString("apellidoMaterno");
+        String usuario = resultSet.getString("usuario");
+        byte estatus = resultSet.getByte("estatus");
+        return new DTOTablaSubordinados(id, nombre, apellidoPaterno, apellidoMaterno, usuario, estatus);
+    }
+    public List<DTOTablaSubordinados> BuscarTablaDeSubordinados(DTOFiltroBusqueda filtro){
+        List<EmpleadoDominio> resultado = new ArrayList<>();
+        
+        String query="""
+                     SELECT 
+                        A.nombre,
+                        A.apellidoPaterno,
+                        A.apellidoMaterno,
+                        A.usuario
+                     FROM empleados AS A
+                     INNER JOIN subordinados AS B
+                        ON A.id=B.idEmpleado
+                     WHERE A.estatus = 1
+                     LIMIT ?
+                     OFFSET ?;
+                     """;
+        Connection conn = null;
+        try {
+            conn = conexion.crearConexion();
+            PreparedStatement psmt = conn.prepareStatement(query);
+            
+            psmt.setInt(1, filtro.getLimit());
+            psmt.setInt(2, filtro.getOffset());
+            
+            ResultSet rs = psmt.executeQuery();
+            List<DTOTablaSubordinados> subordinados = null;
+            while (rs.next()) {
+
+                if (subordinados == null) {
+                    subordinados = new ArrayList<>();
+                }
+
+                subordinados.add(this.convertirTablaSubordinadosDTO(rs));
+            }
+            
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }
